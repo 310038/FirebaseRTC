@@ -1,5 +1,6 @@
 mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
 
+/** iceServers的配置 **/
 const configuration = {
   iceServers: [
     {
@@ -18,6 +19,9 @@ let remoteStream = null;
 let roomDialog = null;
 let roomId = null;
 
+/** 初始化
+ * 
+ */
 function init() {
   document.querySelector('#cameraBtn').addEventListener('click', openUserMedia);
   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
@@ -26,6 +30,7 @@ function init() {
   roomDialog = new mdc.dialog.MDCDialog(document.querySelector('#room-dialog'));
 }
 
+/** 創建房間 **/
 async function createRoom() {
   document.querySelector('#createBtn').disabled = true;
   document.querySelector('#joinBtn').disabled = true;
@@ -104,6 +109,7 @@ async function createRoom() {
   // Listen for remote ICE candidates above
 }
 
+/** 加入房間 **/
 function joinRoom() {
   document.querySelector('#createBtn').disabled = true;
   document.querySelector('#joinBtn').disabled = true;
@@ -119,6 +125,7 @@ function joinRoom() {
   roomDialog.open();
 }
 
+/** 透過房間ID加入房間 **/
 async function joinRoomById(roomId) {
   const db = firebase.firestore();
   const roomRef = db.collection('rooms').doc(`${roomId}`);
@@ -184,6 +191,7 @@ async function joinRoomById(roomId) {
   }
 }
 
+/** 開啟視訊 **/
 async function openUserMedia(e) {
   const stream = await navigator.mediaDevices.getUserMedia(
       {video: true, audio: true});
@@ -199,6 +207,7 @@ async function openUserMedia(e) {
   document.querySelector('#hangupBtn').disabled = false;
 }
 
+/** 掛斷 **/
 async function hangUp(e) {
   const tracks = document.querySelector('#localVideo').srcObject.getTracks();
   tracks.forEach(track => {
@@ -239,6 +248,7 @@ async function hangUp(e) {
   document.location.reload(true);
 }
 
+/** 註冊eventListeners **/
 function registerPeerConnectionListeners() {
   peerConnection.addEventListener('icegatheringstatechange', () => {
     console.log(

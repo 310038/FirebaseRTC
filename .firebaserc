@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "fir-rtc-89b99"
-  }
+    "default": "webrtc-4a779",
+    "staging": "fir-rtc-a6445"
+  },
+  "targets": {},
+  "etags": {}
 }
